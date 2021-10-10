@@ -1,4 +1,3 @@
-// There is an Issue with this code so do not generate correct result
 // Merge Sort
 #include<iostream>
 using namespace std;
@@ -8,22 +7,21 @@ void mergeSort(int arr[], int l, int r);
 void merge(int arr[], int l, int mp, int r);
 
 int main(){
-	int arr[] = {4,5,8,9,7};
+	int arr[] = {4,5,8,9,7,5,9,7,8,6,3,1,5,4,2};
 	int length = sizeof(arr)/sizeof(arr[1]);
 	
 	printArr(arr, length);
-	mergeSort(arr, 0, length -1);
+	mergeSort(arr, 0, length-1);
 	printArr(arr, length);
 }
 
 void mergeSort(int arr[], int l, int r){
-	if(l>=r){
-		return;
+	if(l<r){
+		int mp = (l+r)/2;
+		mergeSort(arr, l, mp);
+		mergeSort(arr, mp+1, r);
+		merge(arr, l, mp, r);
 	}
-	int mp = (l+r)/2;
-	mergeSort(arr, l, mp);
-	mergeSort(arr, mp+1, r);
-	merge(arr, l, mp, r);
 }
 
 void merge(int arr[], int l, int mp, int r){
@@ -40,9 +38,10 @@ void merge(int arr[], int l, int mp, int r){
 		rightArr[j] = arr[mp+1+j];
 	}
 	
+	
 	int i=0;
 	int j=0;
-	int k=0;
+	int k=l;
 	
 	while(i<n1 && j<n2){
 		if(leftArr[i]<=rightArr[j]){
@@ -57,14 +56,16 @@ void merge(int arr[], int l, int mp, int r){
 	
 	while(i<n1){
 		arr[k]=leftArr[i];
-		i++;
 		k++;
+		i++;
+		
 	}
 	
 	while(j<n2){
 		arr[k]=rightArr[j];
-		j++;
 		k++;
+		j++;
+		
 	}
 	
 
